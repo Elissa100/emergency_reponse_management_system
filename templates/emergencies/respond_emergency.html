@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Respond to Emergency</h1>
+    <p>Details about the emergency will go here:</p>
+    <ul>
+        <li><strong>ID:</strong> {{ incident.id }}</li>
+        <li><strong>Type:</strong> {{ incident.type }}</li>
+        <li><strong>Location:</strong> {{ incident.location }}</li>
+        <li><strong>Reported At:</strong> {{ incident.created_at }}</li>
+        <li><strong>Description:</strong> {{ incident.description }}</li>
+    </ul>
+    <hr>
+    <h3>Submit Your Response</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit Response</button>
+    </form>
+</div>
+{% endblock %}

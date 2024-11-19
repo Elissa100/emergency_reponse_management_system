@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2>Emergency Detail</h2>
+        <p><strong>Type:</strong> {{ incident.get_emergency_type_display }}</p>
+        <p><strong>Status:</strong> {{ incident.get_status_display }}</p>
+        <p><strong>Reported At:</strong> {{ incident.created_at }}</p>
+        <p><strong>Description:</strong> {{ incident.description }}</p>
+
+        <h3>Responses</h3>
+        <ul>
+            {% for response in responses %}
+                <li>
+                    <strong>{{ response.responder.username }}</strong>: {{ response.response_details }} ({{ response.responded_at }})
+                </li>
+            {% empty %}
+                <li>No responses yet.</li>
+            {% endfor %}
+        </ul>
+
+        {% if incident.status != 'CLOSED' %}
+            <a href="{% url 'respond_emergency' incident.id %}" class="btn btn-primary">Respond to Emergency</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
